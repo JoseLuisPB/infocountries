@@ -1,0 +1,15 @@
+  <div class="d-flex flex-center">
+    <div *ngIf="isLoading">
+      <p>Loading ...</p>
+    </div>
+
+    <div *ngIf="!isLoading">
+      <div class="flag-arrangement" *ngFor="let item of flag_data">
+        <a class="m-4" [routerLink]="['/detail', item.code]">
+          <img [src]= "item.country_flag" [alt]="item.country" [title]="item.country" width="150" height="100" />
+        </a>
+      </div>
+    </div>
+  </div>
+
+
