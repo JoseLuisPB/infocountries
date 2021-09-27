@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { RestcountriesService } from 'src/app/services/restcountries.service';
-import { flag} from '../../interfaces/flag'
+import { Component, OnInit, Input } from '@angular/core';
+import { IFlag } from '../../interfaces/flag'
 
 @Component({
   selector: 'app-flag',
@@ -9,26 +8,14 @@ import { flag} from '../../interfaces/flag'
 })
 export class FlagComponent implements OnInit {
 
-  flag_data: flag[] = [];
-  url: string = 'https://restcountries.com/v3/alpha/';
-  isLoading: boolean = true;
+  @Input() flag_data: IFlag = {
+    code: '',
+    country: '',
+    country_flag: []
+  };
 
-  constructor(private restcountries: RestcountriesService) {
+  constructor() {
 
-    this.restcountries.getAllCountries().subscribe( (data: any) => {
-
-      for( let item of data){
-        this.flag_data.push(
-          {
-            code: item.cca2,
-            country_flag: item.flags[1],
-            country: item.name.common
-          }
-        )
-      }
-
-      this.isLoading = false;
-    });
 
   }
 
