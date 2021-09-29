@@ -1,5 +1,16 @@
 <div class="container">
-  <h1 class="text-center">Welcome to the infocountries page</h1>
-  <app-flag></app-flag>
+  <h1 class="text-center">Welcome to infocountries page</h1>
+  <p>I have created this project to practice on consuming from an API and get deeper knowledge on Angular and the way it works.</p>
+  <p>The API I am using is hosted in <a href="https://restcountries.com/">restcountries</a></p>
+
+  <div class="d-flex justify-content-center"  *ngIf="isLoading">
+    <app-loading [isLoading]="isLoading"></app-loading>
+  </div>
+
+  <div class="d-flex justify-content-center" *ngIf="!isLoading">
+      <div class="flag-arrangement" >
+        <app-flag class="m-4" *ngFor="let item of flag_array" [flag_data]="item"></app-flag>
+      </div>
+    </div>
 </div>
 
