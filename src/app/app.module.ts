@@ -9,6 +9,7 @@ import { SearchComponent } from './pages/search/search.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FlagComponent } from './components/flag/flag.component';
 import { DetailComponent } from './pages/detail/detail.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { DetailComponent } from './pages/detail/detail.component';
     NavbarComponent,
     SearchComponent,
     FlagComponent,
-    DetailComponent
+    DetailComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
