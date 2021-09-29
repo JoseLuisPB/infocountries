@@ -1,6 +1,7 @@
 <div>
   <a [routerLink]="['/detail', flag_data.code]">
-    <img [src]= "flag_data.country_flag" [alt]="flag_data.country" [title]="flag_data.country" width="150" height="100" />
+    <img [src]= "flag_data.country_flag" [alt]="flag_data.country" [title]="flag_data.country" onError="this.src='assets/images/World_Flag.png'"
+          width="150" height="100" />
   </a>
 </div>
 
