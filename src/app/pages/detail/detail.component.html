@@ -1,1 +1,40 @@
-<p>detail works!</p>
+<div class="d-flex justify-content-center mt-4 row">
+    <div class="col-5 d-flex flex-column flex-nowrap">
+      <img class="flag-border" [src]="country.flag" [alt]="country.name" height="100%" />
+    </div>
+    <div class="col-4">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td class="text-right">Name:</td>
+            <td>{{ country.name }}</td>
+          </tr>
+          <tr>
+            <td>Capital:</td>
+            <td>{{ country.capital }}</td>
+          </tr>
+          <tr>
+            <td>Population:</td>
+            <td>{{ country.population | number }} hab</td>
+          </tr>
+          <tr>
+            <td>Area:</td>
+            <td>{{ country.area | number }} km<sup>2</sup></td>
+          </tr>
+          <tr>
+            <td>Region:</td>
+            <td> {{ country.region }}</td>
+          </tr>
+          <tr>
+            <td>Subregion:</td>
+            <td> {{ country.subregion }}</td>
+          </tr>
+          <tr>
+            <td>Continent:</td>
+            <td> {{ country.continent !== undefined? country.continent : " - " }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+
