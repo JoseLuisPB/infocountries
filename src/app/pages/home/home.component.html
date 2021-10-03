@@ -1,16 +1,23 @@
-<div class="container">
-  <h1 class="text-center">Welcome to infocountries page</h1>
-  <p>I have created this project to practice on consuming from an API and get deeper knowledge on Angular and the way it works.</p>
-  <p>The API I am using is hosted in <a href="https://restcountries.com/">restcountries</a></p>
+<div>
+  <h1 class="text-center my-3">Welcome to infocountries page</h1>
 
-  <div class="d-flex justify-content-center"  *ngIf="isLoading">
-    <app-loading [isLoading]="isLoading"></app-loading>
+  <div class="m-3">
+    <p>I have created this project to practice on consuming from an API and get deeper knowledge on Angular and the way it works.</p>
+    <p>The API I am using is hosted in <a href="https://restcountries.com/"><strong>restcountries</strong></a></p>
+    <p>Choose one of the following countries or press the button to access to the details of a random country</p>
+    <button class="btn-random" (click)="randomCountry()">Random country</button>
   </div>
 
-  <div class="d-flex justify-content-center" *ngIf="!isLoading">
+  <div class="d-flex justify-content-center">
+    <ng-container *ngIf="!isLoading else loading" >
       <div class="flag-arrangement" >
         <app-flag class="m-4" *ngFor="let item of flag_array" [flag_data]="item"></app-flag>
       </div>
-    </div>
+    </ng-container>
+    <ng-template #loading>
+      <app-loading [isLoading]="isLoading"></app-loading>
+    </ng-template>
+  </div>
+
 </div>
 
