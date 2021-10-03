@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FlagComponent } from './components/flag/flag.component';
 import { DetailComponent } from './pages/detail/detail.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { BaseComponentComponent } from './components/base-component/base-component.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { LoadingComponent } from './components/loading/loading.component';
     SearchComponent,
     FlagComponent,
     DetailComponent,
-    LoadingComponent
+    LoadingComponent,
+    BaseComponentComponent
   ],
   imports: [
     BrowserModule,
