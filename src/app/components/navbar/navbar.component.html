@@ -1,10 +1,15 @@
-<nav class="w-100 bg-dark">
-  <ul>
-    <li class="item-nav">
-      <a routerLink="/home" routerLinkActive="active">Home</a>
-    </li>
-    <li class="item-nav">
-      <a routerLink="/search" routerLinkActive="active">Search</a>
-    </li>
-  </ul>
+<nav class="w-100 d-flex justify-content-between align-items-baseline" [style.height.px]="NAVBAR_HEIGHT">
+  <div>
+    <ul>
+      <li class="item-nav">
+        <a routerLink="/home" routerLinkActive="active">Home</a>
+      </li>
+      <li class="item-nav">
+        <a routerLink="/search" routerLinkActive="active">Search</a>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <span class="title">Infocountries</span>
+  </div>
 </nav>

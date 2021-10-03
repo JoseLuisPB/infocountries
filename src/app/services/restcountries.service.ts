@@ -6,15 +6,18 @@ import { HttpClient} from '@angular/common/http'
 })
 export class RestcountriesService {
 
+  url: string = 'https://restcountries.com/v3/';
+
   constructor(private http: HttpClient) { }
 
   getAllCountries(){
-    return this.http.get('https://restcountries.com/v3/all');
+    const url_complete = this.url + 'all';
+    return this.http.get(url_complete);
   }
 
   getCountry(id: string){
-    const url = 'https://restcountries.com/v3/alpha/' + id;
-    return this.http.get(url);
+    const url_complete =  this.url + 'alpha/' + id;
+    return this.http.get(url_complete);
   }
 
 }

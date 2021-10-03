@@ -1,0 +1,23 @@
+.flag-arrangement{
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.btn-random{
+  background-color: #097d0b;
+  border-radius: 10px;
+  padding: 10px;
+  color: white;
+  font-size: 16px;
+  border: transparent;
+}
+
+h1 {
+  font-size: 50px;
+}
+
+p{
+  font-size: 18px;
+}

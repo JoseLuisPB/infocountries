@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
+  NAVBAR_HEIGHT = 74;
+
   constructor() { }
 
   ngOnInit(): void {
