@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { APP_CONST } from 'src/app/constants';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -10,7 +11,7 @@ export class BaseComponentComponent implements OnInit {
   windowHeight = 0;
 
   constructor(private utils: UtilsService,) {
-    this.windowHeight = this.utils.getWindowHeight() - 80;
+    this.windowHeight = window.innerHeight - APP_CONST.NAVBAR_HEIGHT;
   }
 
   ngOnInit(): void {
