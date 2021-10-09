@@ -11,7 +11,7 @@ export class BaseComponentComponent implements OnInit {
   windowHeight = 0;
 
   constructor(private utils: UtilsService,) {
-    this.windowHeight = window.innerHeight - APP_CONST.NAVBAR_HEIGHT;
+    this.windowHeight = window.innerHeight - APP_CONST.NAVBAR_HEIGHT - APP_CONST.FOOTER_HEIGHT;
   }
 
   ngOnInit(): void {
