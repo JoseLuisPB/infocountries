@@ -7,7 +7,4 @@ export class UtilsService {
 
   constructor() { }
 
-  getWindowHeight(): number{
-    return window.innerHeight;
-  }
 }

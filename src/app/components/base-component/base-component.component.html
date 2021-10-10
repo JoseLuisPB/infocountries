@@ -1,7 +1,9 @@
 <div>
   <app-navbar></app-navbar>
 
-  <div class="container app-container" [style.min-height.px]="windowHeight">
+  <section class="container app-container" [style.min-height.px]="windowHeight">
     <router-outlet></router-outlet>
-  </div>
-</div>>
+  </section>
+
+  <app-footer></app-footer>
+</div>

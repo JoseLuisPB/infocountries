@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { IFlag } from 'src/app/interfaces/flag';
 import { RestcountriesService } from 'src/app/services/restcountries.service';
 
@@ -8,32 +9,41 @@ import { RestcountriesService } from 'src/app/services/restcountries.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
+  subscriptions: Subscription[] = [];
   flag_array: IFlag[] = [];
   url: string = 'https://restcountries.com/v3/alpha/';
   isLoading: boolean = true;
 
 
   constructor(private restcountries: RestcountriesService,
-              private router: Router) {
-    this.restcountries.getAllCountries().subscribe( (data: any) => {
+              private router: Router
+  ){
 
-      for( let item of data){
-        this.flag_array.push(
-          {
-            code: item.cca2,
-            country_flag: item.flags[1],
-            country: item.name.common
-          }
-        )
-      }
+    this.subscriptions.push(
+      this.restcountries.getAllCountries().subscribe( (data: any) => {
 
-      this.isLoading = false;
-    });
+        for( let item of data){
+          this.flag_array.push(
+            {
+              code: item.cca2,
+              country_flag: item.flags[1],
+              country: item.name.common
+            }
+          )
+        }
+
+        this.isLoading = false;
+      })
+    );
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(){
+    this.subscriptions.forEach( subscription => subscription.unsubscribe());
   }
 
   randomCountry(): void{

@@ -1,1 +1,42 @@
-<p>search works!</p>
+<div>
+  <div *ngIf="!isLoading">
+    <form  [formGroup]="searchForm">
+      <!-- Search -->
+      <div class="row">
+        <div class="col-4 my-2">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingSearch" placeholder="Search" formControlName="name" (keyup)="dataCheck()">
+            <label for="floatingSearch">Search</label>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <!-- Region -->
+        <div class="col-4">
+          <div class="form-floating">
+            <select class="form-select" id="floatingSelectRegion" formControlName="region" (change)="filterCountry()">
+              <option value= 'all'>All</option>
+              <option *ngFor="let region of regionList" [value]="region">{{region}}</option>
+            </select>
+            <label for="floatingSelectRegion">Region</label>
+          </div>
+        </div>
+        <!-- Subregion -->
+        <div class="col-4">
+          <div class="form-floating">
+            <select class="form-select" id="floatingSelectSubRegion" formControlName="subregion">
+              <option selected>East</option>
+              <option value="europe">North</option>
+              <option value="asia">South</option>
+              <option value="america">West</option>
+            </select>
+            <label for="floatingSelectSubRegion">Subregion</label>
+          </div>
+        </div>
+      </div>
+    </form>
+    <hr />
+    <app-flag *ngFor="let flag of flagList" [flag_data]="flag"></app-flag>
+  </div>
+  <app-loading class="d-flex justify-content-center mt-4" *ngIf="isLoading" [isLoading]="isLoading"></app-loading>
+</div>

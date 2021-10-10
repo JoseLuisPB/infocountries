@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { APP_CONST } from '../../constants'
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  NAVBAR_HEIGHT = 74;
+  navHeight = 0;
 
-  constructor() { }
+  constructor() {
+    this.navHeight = APP_CONST.NAVBAR_HEIGHT;
+  }
 
   ngOnInit(): void {
   }

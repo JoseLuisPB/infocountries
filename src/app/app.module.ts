@@ -11,6 +11,8 @@ import { FlagComponent } from './components/flag/flag.component';
 import { DetailComponent } from './pages/detail/detail.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { BaseComponentComponent } from './components/base-component/base-component.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,12 +23,14 @@ import { BaseComponentComponent } from './components/base-component/base-compone
     FlagComponent,
     DetailComponent,
     LoadingComponent,
-    BaseComponentComponent
+    BaseComponentComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
