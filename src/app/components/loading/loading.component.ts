@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class LoadingComponent implements OnInit {
 
-  @Input() isLoading = true;
+  marginTop = 100;
 
   constructor() { }
 

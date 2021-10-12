@@ -12,28 +12,25 @@ import { RestcountriesService } from 'src/app/services/restcountries.service';
 export class HomeComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
-  flag_array: IFlag[] = [];
-  url: string = 'https://restcountries.com/v3/alpha/';
+  flagList: IFlag[] = [];
   isLoading: boolean = true;
 
 
   constructor(private restcountries: RestcountriesService,
               private router: Router
   ){
-
     this.subscriptions.push(
-      this.restcountries.getAllCountries().subscribe( (data: any) => {
+      this.restcountries.getAllCountries().subscribe( (countries: any) => {
 
-        for( let item of data){
-          this.flag_array.push(
+        for( let country of countries){
+          this.flagList.push(
             {
-              code: item.cca2,
-              country_flag: item.flags[1],
-              country: item.name.common
+              code: country.cca2,
+              country_flag: country.flags[1],
+              country: country.name.common
             }
           )
         }
-
         this.isLoading = false;
       })
     );
@@ -48,12 +45,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   randomCountry(): void{
 
-    const codeArray = this.flag_array.map( item => item.code);
-    const numberOfCountries = this.flag_array.length;
+    const codeList = this.flagList.map( flag => flag.code);
+    const numberOfCountries = this.flagList.length;
     const position = Math.round(Math.random() * (numberOfCountries - 0) + 0);
-    const countryCode = codeArray[position];
+    const countryCode = codeList[position];
     this.router.navigate(['/detail', countryCode]);
-
   }
 
 }

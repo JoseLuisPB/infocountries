@@ -13,6 +13,7 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
   languagesFormated = '';
+  isLoading = true;
 
   country: ICountry = {
     flag: '',
@@ -48,6 +49,7 @@ export class DetailComponent implements OnInit, OnDestroy {
         });
 
         this.languagesFormated = this.country.languages.join(', ');
+        this.isLoading = false;
       })
     );
 

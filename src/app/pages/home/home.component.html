@@ -1,22 +1,23 @@
-<div>
+<section>
   <h1 class="text-center my-3">Welcome to infocountries page</h1>
 
   <div class="m-3">
     <p>I have created this project to practice on consuming from an API and get deeper knowledge on Angular and the way it works.</p>
-    <p>Choose one of the following countries or press the button to access to the details of a random country</p>
-    <button class="btn-random" (click)="randomCountry()">Random country</button>
+    <p>Choose one of the following countries to access to its details or press the button to acces to a
+      <button class="btn-random" (click)="randomCountry()">Random country</button>
+    </p>
   </div>
 
   <div class="d-flex justify-content-center">
     <ng-container *ngIf="!isLoading else loading" >
       <div class="flag-arrangement" >
-        <app-flag class="m-4" *ngFor="let item of flag_array" [flag_data]="item"></app-flag>
+        <app-flag class="m-4" *ngFor="let flag of flagList" [flag_data]="flag"></app-flag>
       </div>
     </ng-container>
     <ng-template #loading>
-      <app-loading [isLoading]="isLoading"></app-loading>
+      <app-loading></app-loading>
     </ng-template>
   </div>
 
-</div>
+</section>
 

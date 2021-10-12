@@ -13,7 +13,6 @@ nav{
   a{
     color:white;
     text-decoration: none;
-
   }
 
   .active{
@@ -27,6 +26,11 @@ nav{
   padding: 10px;
   font-size: 36px;
   color:crimson;
+
+  a{
+    color: crimson;
+    text-decoration: none;
+  }
 }
 
 
