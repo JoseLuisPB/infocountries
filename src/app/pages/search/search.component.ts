@@ -17,11 +17,12 @@ interface IAdaptedCountry {
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
+
 export class SearchComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
   countryList: IAdaptedCountry[] = [];
-  auxCountryList: IAdaptedCountry[] = [];
+  workingCountryList: IAdaptedCountry[] = [];
   flagList: IFlag[] = [];
   regionList: string[] = [];
   subregionList: string[] = [];
@@ -35,11 +36,11 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.restcountries.getAllCountries().subscribe( (countries:  any) => {
         this.adaptCountry(countries);
-        this.auxCountryList = this.countryList;
-        this.adaptFlag(this.auxCountryList);
+        this.adaptFlag(this.countryList);
         this.regionList = this.createRegionList();
+        this.subregionList = [];
         this.searchForm = this.initForm();
-        this.isLoading = false
+        this.isLoading = false;
       })
     );
   }
@@ -54,13 +55,13 @@ export class SearchComponent implements OnInit, OnDestroy {
   initForm(): FormGroup{
     return this.fb.group({
       name: [''],
-      region: [null],
-      subregion: [''],
-      language: [null],
+      region: ['all'],
+      subregion: [{value: 'all', disabled: true}],
     });
   }
 
   adaptCountry(countries: any): void{
+
     for( let item of countries){
       const adaptedCountry: IAdaptedCountry = {
         flag: item.flags[1],
@@ -74,43 +75,84 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   adaptFlag(countries: any): void{
-    console.log(countries);
+    this.flagList = [];
     for( let country of countries ){
-
         this.flagList.push(
           {
             code: country.code,
-            country: country.name,
+            country: country.name.common,
             country_flag: country.flag,
           }
         );
-
     }
-    console.log(this.flagList);
   }
-
-  createRegionList(): string[]{
+  createRegionList(): string[] {
     const regionDuplicateArray = this.countryList.map( region => region.region);
     const regionSingleArray = [... new Set(regionDuplicateArray)];
     return regionSingleArray;
   }
 
-  filterCountry(): void{
+  createSubregionList(): string[] {
+    const subregionDuplicateArray = this.workingCountryList.map((subregion: any) => subregion.subregion);
+    const subregionSingleArray = [... new Set(subregionDuplicateArray)];
+    return subregionSingleArray;
+  }
 
+  search(): void{
+    const inputText = this.searchForm.controls.name.value;
+    const searchList = this.countryList.filter( (data: any) => data.name.common.toLowerCase().includes(inputText) );
+    this.adaptFlag(searchList);
+    this.workingCountryList = searchList;
+  }
+
+  filterCountryRegion(): void{
+
+    this.workingCountryList = [];
+    this. subregionList = [];
     const regionSelected = this.searchForm.controls.region.value;
 
-    if( regionSelected !== 'all'){
-      this.auxCountryList = this.countryList.filter(region => region.region === regionSelected);
-    } else {
-      this.auxCountryList = this.countryList;
+    if ( this.searchForm.controls.name.value.length === 0){
+      if( regionSelected !== 'all'){
+        this.workingCountryList = this.countryList.filter(region => region.region === regionSelected);
+        this.subregionList = this.createSubregionList();
+        this.searchForm.get('subregion')?.enable();
+      } else {
+        this.workingCountryList = this.countryList;
+        this.searchForm.get('subregion')?.disable();
+      }
+    }
+    else {
+      const auxCountryList = this.workingCountryList;
+
+      if ( regionSelected !== 'all'){
+
+      }
+      else{
+        this.workingCountryList = auxCountryList.filter(region => region.region === regionSelected);
+        this.searchForm.get('subregion')?.disable();
+      }
+
     }
 
-    this.adaptFlag(this.auxCountryList);
+
+
+    this.adaptFlag(this.workingCountryList);
 
   }
 
-  dataCheck(): void{
+  filterCountrySubRegion(): void{
+    const subregionSelected = this.searchForm.controls.subregion.value;
+    const regionSelected = this.searchForm.controls.region.value;
 
+    if ( subregionSelected !== 'all' ){
+      this.workingCountryList = this.countryList.filter(subregion => subregion.subregion === subregionSelected);
+    } else {
+      this.workingCountryList = this.countryList.filter(region => region.region === regionSelected);
+    }
+
+    this.adaptFlag(this.workingCountryList);
   }
+
+
 
 }
