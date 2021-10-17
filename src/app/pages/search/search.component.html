@@ -12,7 +12,7 @@
         <!-- Region -->
         <div class="col-3 my-4 mx-2">
           <div class="form-floating">
-            <select class="form-select" id="floatingSelectRegion" formControlName="region" (change)="filterCountryRegion()">
+            <select class="form-select" id="floatingSelectRegion" formControlName="region">
               <option value= 'all'>All</option>
               <option *ngFor="let region of regionList" [value]="region">{{region}}</option>
             </select>
@@ -22,7 +22,7 @@
         <!-- Subregion -->
         <div class="col-3 my-4 mx-2">
           <div class="form-floating">
-            <select class="form-select" id="floatingSelectSubRegion" formControlName="subregion" (change)="filterCountrySubRegion()">
+            <select class="form-select" id="floatingSelectSubRegion" formControlName="subregion">
               <option value= 'all'>All</option>
               <option *ngFor="let subregion of subregionList" [value]="subregion">{{subregion}}</option>
             </select>
