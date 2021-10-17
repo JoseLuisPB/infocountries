@@ -1,0 +1,10 @@
+.flag-style{
+  border-radius: 10px;
+  width: 150px;
+  height: 100px;
+  transition: transform .2s;
+}
+
+.flag-style:hover{
+  transform: scale(1.1);
+}
