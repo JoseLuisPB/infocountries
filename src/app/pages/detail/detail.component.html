@@ -1,44 +1,68 @@
-<div class="row py-4 text-center">
-  <h1>Details for {{ country.name}}</h1>
-</div>
-<div class="row">
-  <div class="col-2"></div>
-    <div class="col-4 d-flex justify-content-end">
-      <img class="img-fluid" [src]="country.flag" [alt]="country.name" height="100%" />
+<section>
+  <ng-container *ngIf="!isLoading else loading">
+    <div class="row pt-4 text-center">
+      <h1>Country details</h1>
     </div>
-    <div class="col-4">
-      <table class="table">
-        <tbody>
-          <tr>
-            <td class="text-right">Name:</td>
-            <td>{{ country.name }}</td>
-          </tr>
-          <tr>
-            <td>Capital:</td>
-            <td>{{ country.capital }}</td>
-          </tr>
-          <tr>
-            <td>{{ country.languages.length > 1 ? "Languages:" : "Language:"}}</td>
-            <td> {{languagesFormated }}</td>
-          </tr>
-          <tr>
-            <td>Population:</td>
-            <td>{{ country.population | number }} hab</td>
-          </tr>
-          <tr>
-            <td>Area:</td>
-            <td>{{ country.area | number }} km<sup>2</sup></td>
-          </tr>
-          <tr>
-            <td>Region:</td>
-            <td> {{ country.region }}</td>
-          </tr>
-          <tr>
-            <td>Subregion:</td>
-            <td> {{ country.subregion }}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="row">
+      <div class="col-sm-3 d-flex justify-content-center align-items-center">
+        <button> before </button>
+      </div>
+      <div class="col-sm-6">
+        <div class="card-format my-4">
+          <div class="row">
+            <span class="country-name text-white">{{ country.name}}</span>
+        </div>
+          <div class="row">
+            <img height="175" [src]="country.flag" [alt]="country.name"/>
+          </div>
+          <div class="row">
+            <div class="d-flex align-items-end">
+              <span class="title-data">Capital:</span>
+              <span class="content-data">{{ country.capital}}</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="d-flex align-items-end">
+                <span class="title-data">Population:</span>
+                <span class="content-data">{{ country.population | number }} hab.</span>
+              </div>
+          </div>
+          <div class="row">
+            <div class="d-flex align-items-end">
+              <span class="title-data">Area:</span>
+              <span class="content-data">{{ country.area | number }} km<sup>2</sup></span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="d-flex justify-content-between">
+              <div class="d-flex align-items-end">
+                <span class="title-data">Region:</span>
+                <span class="content-data">{{ country.region }}</span>
+              </div>
+              <div class="d-flex align-items-end">
+                <span class="title-data">Subregion:</span>
+                <span class="content-data">{{ country.subregion }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="row pb-3">
+            <div class="d-flex align-items-end">
+              <span class="title-data">{{ country.languages.length > 1 ? "Languages:" : "Language:"}}</span>
+              <span class="content-data"> {{languagesFormated }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3  d-flex justify-content-center align-items-center">
+        <button> After </button>
+      </div>
     </div>
-</div>
+  </ng-container>
+  <ng-template #loading>
+    <app-loading class="d-flex justify-content-center" *ngIf="isLoading"></app-loading>
+  </ng-template>
+
+</section>
+
+
 

@@ -1,14 +1,26 @@
-table td{
-  padding: 10px;
-  font-size: 18px;
-
+.card-format{
+  background-color: #68829e;
+  border-radius: 25px;
+  padding: 0px 15px;
 }
 
-td:first-child{
+
+.country-name{
+  font-size: 40px;
+  text-align: center;
+  color: white;
+  padding: 5px
+}
+
+.title-data{
+  font-size: 20px;
   font-weight: bold;
+  color: white;
+  padding: 10px
 }
 
-.table{
-  margin-bottom: 0;
-  border-bottom: #6c11ea solid 1px;
+.content-data{
+  font-size: 18px;
+  padding: 10px;
+  color: white;
 }
