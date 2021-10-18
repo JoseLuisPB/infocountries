@@ -31,14 +31,19 @@
         </div>
       </div>
     </form>
-    <hr />
-    <div class="d-flex">
-      <div class="flag-arrangement">
-        <app-flag class="m-4" *ngFor="let flag of flagList" [flag_data]="flag"></app-flag>
+    <mat-divider></mat-divider>
+    <div *ngIf="searchFindResult; else noResult">
+      <div class="d-flex" >
+        <div class="flag-arrangement">
+          <app-flag class="m-4" *ngFor="let flag of flagList" [flag_data]="flag"></app-flag>
+        </div>
       </div>
     </div>
   </ng-container>
   <ng-template #loading>
     <app-loading class="d-flex justify-content-center"></app-loading>
+  </ng-template>
+  <ng-template #noResult>
+    <h2 class="d-flex justify-content-center mt-3">No results found</h2>
   </ng-template>
 </section>

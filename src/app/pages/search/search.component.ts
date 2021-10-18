@@ -20,6 +20,8 @@ interface IAdaptedCountry {
 
 export class SearchComponent implements OnInit, OnDestroy {
 
+  isLoading: boolean = true;
+  searchFindResult: boolean = true;
   subscriptions: Subscription[] = [];
   countryList: IAdaptedCountry[] = [];
   workingCountryList: IAdaptedCountry[] = [];
@@ -27,7 +29,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   regionList: string[] = [];
   subregionList: string[] = [];
   searchForm!: FormGroup;
-  isLoading: boolean = true;
+
 
   constructor(
     private restcountries: RestcountriesService,
@@ -114,10 +116,17 @@ export class SearchComponent implements OnInit, OnDestroy {
     const searchList: IAdaptedCountry[] = this.countryList.filter( (country: any) => country.name.common.toLowerCase().includes(searchText) );
     this.createFlagList(searchList);
     this.workingCountryList = searchList;
+
+    if(searchList.length === 0 ){
+      this.searchFindResult = false;
+    } else {
+      this.searchFindResult = true;
+    }
+    console.log(this.searchFindResult);
   }
 
   filterCountryRegion(actualCountryList: IAdaptedCountry[]): void{
-
+    this.searchFindResult = true;
     const regionSelected = this.searchForm.get('region')?.value
 
       if( regionSelected === 'all'){
@@ -134,7 +143,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
   filterCountrySubRegion(actualCountryList: any): void {
-
+    this.searchFindResult = true;
     const subregionSelected = this.searchForm.controls.subregion.value;
     const regionSelected = this.searchForm.controls.region.value;
 
