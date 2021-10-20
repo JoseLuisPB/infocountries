@@ -13,6 +13,9 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { BaseComponentComponent } from './components/base-component/base-component.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialsModule } from '../app/materials/materials.module';
 
 @NgModule({
   declarations: [
@@ -24,13 +27,17 @@ import { ReactiveFormsModule } from '@angular/forms';
     DetailComponent,
     LoadingComponent,
     BaseComponentComponent,
-    FooterComponent
+    FooterComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MaterialsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
