@@ -14,10 +14,20 @@ nav{
     color:white;
     text-decoration: none;
   }
-
   .active{
-    color:#ff000c;
+    color: $link-active;
+      a {
+        color: $link-active;
+      }
+
+      mat-icon {
+        color: $link-active;
+      }
   }
+}
+
+mat-icon {
+  color:white;
 }
 
 .title{
@@ -25,12 +35,16 @@ nav{
   margin: 0px 15px;
   padding: 10px;
   font-size: 36px;
-  color:#0af526;
+  color:$page-title;
 
   a{
-    color: #0af526;
+    color: $page-title;
     text-decoration: none;
   }
+}
+
+.me5{
+  margin-right: 5px;
 }
 
 
