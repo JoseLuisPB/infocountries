@@ -4,20 +4,14 @@
   <div class="m-3">
     <p>I have created this project to practice on consuming from an API and get deeper knowledge on Angular and the way it works.</p>
     <p>Choose one of the following countries to access to its details or press the button to acces to a
-      <button class="btn-random" (click)="randomCountry()">Random country</button>
+      <button class="btn-random" [disabled]="randomButtonDisabled" (click)="randomCountry()"
+        [ngStyle]="{'background-color':randomButtonDisabled === false ? '#0dcaf0' : '#adb5bd' }">
+        Random country
+      </button>
     </p>
   </div>
-
-  <div class="d-flex justify-content-center">
-    <ng-container *ngIf="!isLoading else loading" >
-      <div class="flag-arrangement" >
-        <app-flag class="m-4" *ngFor="let flag of flagList" [flag_data]="flag"></app-flag>
-      </div>
-    </ng-container>
-    <ng-template #loading>
-      <app-loading></app-loading>
-    </ng-template>
+  <div>
+    <app-search (codeListEmiter)="createCodeList($event)"></app-search>
   </div>
-
 </section>
 

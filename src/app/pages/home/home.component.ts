@@ -1,54 +1,29 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { IFlag } from 'src/app/interfaces/flag';
-import { RestcountriesService } from 'src/app/services/restcountries.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent {
 
-  subscriptions: Subscription[] = [];
-  flagList: IFlag[] = [];
-  isLoading: boolean = true;
+  codeList: string[] = [];
+  randomButtonDisabled = true;
 
+  constructor(private router: Router){}
 
-  constructor(private restcountries: RestcountriesService,
-              private router: Router
-  ){
-    this.subscriptions.push(
-      this.restcountries.getAllCountries().subscribe( (countries: any) => {
+  createCodeList(event: string[]): void {
 
-        for( let country of countries){
-          this.flagList.push(
-            {
-              code: country.cca2,
-              country_flag: country.flags[1],
-              country: country.name.common
-            }
-          )
-        }
-        this.isLoading = false;
-      })
-    );
-  }
-
-  ngOnInit(): void {
-  }
-
-  ngOnDestroy(){
-    this.subscriptions.forEach( subscription => subscription.unsubscribe());
+    this.codeList = event;
+    this.randomButtonDisabled = false;
   }
 
   randomCountry(): void{
 
-    const codeList = this.flagList.map( flag => flag.code);
-    const numberOfCountries = this.flagList.length;
+    const numberOfCountries = this.codeList.length;
     const position = Math.round(Math.random() * (numberOfCountries - 0) + 0);
-    const countryCode = codeList[position];
+    const countryCode = this.codeList[position];
     this.router.navigate(['/detail', countryCode]);
   }
 
