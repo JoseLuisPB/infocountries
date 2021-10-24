@@ -16,6 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialsModule } from '../app/materials/materials.module';
+import { TablesComponent } from './components/tables/tables.component';
+import { ChartsComponent } from './components/charts/charts.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { MaterialsModule } from '../app/materials/materials.module';
     LoadingComponent,
     BaseComponentComponent,
     FooterComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    TablesComponent,
+    ChartsComponent
   ],
   imports: [
     BrowserModule,
