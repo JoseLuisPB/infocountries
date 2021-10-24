@@ -1,9 +1,19 @@
-<div>
-  <a [routerLink]="['/detail', flag_data.code]">
-    <img class="flag-style" [src]= "flag_data.country_flag" [alt]="flag_data.country" [title]="flag_data.country"
-    onError="this.src='assets/images/World_Flag.png'"/>
-  </a>
+<div class="flip-card">
+
+  <div class="flip-card-inner">
+
+    <div class="flip-card-front" [routerLink]="['/detail', flag_data.code]">
+      <img class="flag-style" [src]= "flag_data.country_flag" [alt]="flag_data.country" onError="this.src='assets/images/World_Flag.png'"/>
+    </div>
+
+    <div class="flip-card-back" [routerLink]="['/detail', flag_data.code]">
+      <span>{{flag_data.country }}</span>
+    </div>
+
+  </div>
+
 </div>
+
 
 
 

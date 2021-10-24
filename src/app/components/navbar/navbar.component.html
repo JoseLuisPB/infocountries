@@ -2,13 +2,17 @@
   <div>
     <ul>
       <li class="item-nav">
-        <a routerLink="/home" routerLinkActive="active">Home</a>
+        <div class="d-flex me5" routerLinkActive="active">
+          <mat-icon>home</mat-icon>
+          <a routerLink="/home">Home</a>
+        </div>
+
       </li>
       <li class="item-nav">
-        <a routerLink="/search" routerLinkActive="active">Search</a>
-      </li>
-      <li class="item-nav">
-        <a routerLink="/statistics" routerLinkActive="active">Statistics</a>
+        <div class="d-flex me5" routerLinkActive="active">
+          <mat-icon>bar_chart</mat-icon>
+          <a routerLink="/statistics" routerLinkActive="active">Statistics</a>
+        </div>
       </li>
     </ul>
   </div>

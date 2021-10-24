@@ -3,6 +3,12 @@
 footer{
   background-color: $nav-background;
   padding: 10px;
+    a{
+      color:white;
+      text-decoration: none;
+      font-style: italic;
+      font-weight: bold;
+    }
 }
 
 p{

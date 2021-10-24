@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { IFlag } from 'src/app/interfaces/flag';
@@ -20,14 +20,19 @@ interface IAdaptedCountry {
 
 export class SearchComponent implements OnInit, OnDestroy {
 
+  @Output() codeListEmiter = new EventEmitter<string[]>();
+
+  isLoading: boolean = true;
+  searchFindResult: boolean = true;
   subscriptions: Subscription[] = [];
   countryList: IAdaptedCountry[] = [];
   workingCountryList: IAdaptedCountry[] = [];
   flagList: IFlag[] = [];
+  codeList: string[] = []
   regionList: string[] = [];
   subregionList: string[] = [];
   searchForm!: FormGroup;
-  isLoading: boolean = true;
+
 
   constructor(
     private restcountries: RestcountriesService,
@@ -37,6 +42,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.restcountries.getAllCountries().subscribe( (countries:  any) => {
         this.createCountryList(countries);
         this.createFlagList(this.countryList);
+        this.createCodeList(this.countryList);
         this.regionList = this.createRegionList();
         this.subregionList = [];
         this.searchForm = this.initForm();
@@ -87,6 +93,14 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
   }
 
+  createCodeList(countries: any): void {
+    for(let country of countries){
+      this.codeList.push(country.code)
+    }
+
+    this.codeListEmiter.emit(this.codeList);
+  }
+
   loadFormValueChanges(): void {
     this.searchForm.get('region')?.valueChanges.subscribe( data => {
       this.filterCountryRegion(this.countryList);
@@ -114,10 +128,17 @@ export class SearchComponent implements OnInit, OnDestroy {
     const searchList: IAdaptedCountry[] = this.countryList.filter( (country: any) => country.name.common.toLowerCase().includes(searchText) );
     this.createFlagList(searchList);
     this.workingCountryList = searchList;
+
+    if(searchList.length === 0 ){
+      this.searchFindResult = false;
+    } else {
+      this.searchFindResult = true;
+    }
+    console.log(this.searchFindResult);
   }
 
   filterCountryRegion(actualCountryList: IAdaptedCountry[]): void{
-
+    this.searchFindResult = true;
     const regionSelected = this.searchForm.get('region')?.value
 
       if( regionSelected === 'all'){
@@ -134,7 +155,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
   filterCountrySubRegion(actualCountryList: any): void {
-
+    this.searchFindResult = true;
     const subregionSelected = this.searchForm.controls.subregion.value;
     const regionSelected = this.searchForm.controls.region.value;
 
