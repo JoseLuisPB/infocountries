@@ -3,55 +3,49 @@
     <div class="row pt-4 text-center">
       <h1>Country details</h1>
     </div>
-    <div class="row">
-      <div class="col-sm-3"></div>
-      <div class="col-sm-6">
-        <div class="card-format my-4">
-          <div class="row">
-            <span class="country-name text-white">{{ country.name}}</span>
+    <div class="row m-5">
+      <div class="row" style="background-color: #68829e;">
+        <span class="country-name text-white">{{ country.name}}</span>
+      </div>
+      <div class="row" style="background-color: #0e805a;">
+        <div style="width:40%">
+          <img  height="250" width="400" [src]="country.flag" [alt]="country.name"/>
         </div>
-          <div class="row">
-            <div class="col-sm-6">
-              <img [src]="country.flag" [alt]="country.name"/>
-            </div>
-            <div class="col-sm-6 d-flex flex-column ps-3">
-              <div class="d-flex align-items-end">
-                <span class="title-data">Capital:</span>
-                <span class="content-data">{{ country.capital}}</span>
-              </div>
-
-              <div class="d-flex align-items-end">
-                <span class="title-data">Population:</span>
-                <span class="content-data">{{ country.population | number }} hab.</span>
-              </div>
-
-              <div class="d-flex align-items-end">
-                <span class="title-data">Area:</span>
-                <span class="content-data">{{ country.area | number }} km<sup>2</sup></span>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="d-flex">
-              <div class="d-flex align-items-end">
-                <span class="title-data">Region:</span>
-                <span class="content-data">{{ country.region }}</span>
-              </div>
-              <div class="d-flex align-items-end">
-                <span class="title-data">Subregion:</span>
-                <span class="content-data">{{ country.subregion }}</span>
-              </div>
-            </div>
-          </div>
-          <div class="row pb-3">
+        <div style="width:30%">
+          <div class="d-flex flex-column ps-3">
             <div class="d-flex align-items-end">
+              <span class="title-data">Capital:</span>
+              <span class="content-data">{{ country.capital}}</span>
+            </div>
+
+            <div class="d-flex align-items-end">
+              <span class="title-data">Population:</span>
+              <span class="content-data">{{ country.population | number }} hab.</span>
+            </div>
+
+            <div class="d-flex align-items-end">
+              <span class="title-data">Area:</span>
+              <span class="content-data">{{ country.area | number }} km<sup>2</sup></span>
+            </div>
+
+            <div class="d-flex align-items-end">
+              <span class="title-data">Region:</span>
+              <span class="content-data">{{ country.region }} </span>
+            </div>
+
+            <div class="d-flex align-items-end">
+              <span class="title-data">Subregion:</span>
+              <span class="content-data">{{ country.subregion }}</span>
+            </div>
+
+            <div class="d-flex">
               <span class="title-data">{{ country.languages.length > 1 ? "Languages:" : "Language:"}}</span>
               <span class="content-data"> {{languagesFormated }}</span>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-sm-3"></div>
+
     </div>
   </ng-container>
   <ng-template #loading>
