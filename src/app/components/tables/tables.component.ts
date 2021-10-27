@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { RestcountriesService } from 'src/app/services/restcountries.service';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatSort, Sort } from '@angular/material/sort';
 
 interface IcountryData {
 
@@ -12,6 +14,7 @@ interface IcountryData {
   flag: string;
   population: number;
   area: number;
+  region: string;
 }
 
 @Component({
@@ -21,7 +24,6 @@ interface IcountryData {
 })
 export class TablesComponent implements OnInit, OnDestroy {
 
-  isLoading = true;
   displayedColumns: string[] = ['flag', 'country', 'capital', 'population', 'area'];
   countryData: IcountryData[] = [];
   dataSource!: MatTableDataSource<IcountryData>;
@@ -29,8 +31,12 @@ export class TablesComponent implements OnInit, OnDestroy {
 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private restcountries: RestcountriesService) {
+  constructor(
+    private restcountries: RestcountriesService,
+    private liveAnnouncer: LiveAnnouncer,
+    ) {
 
     this.subscriptions.push( this.restcountries.getAllCountries().subscribe((countries: any) => {
 
@@ -43,11 +49,12 @@ export class TablesComponent implements OnInit, OnDestroy {
           flag: country.flags[1],
           population: country.population,
           area: country.area,
+          region: country.region,
         });
       }
       this.dataSource = new MatTableDataSource<IcountryData>(this.countryData);
       this.dataSource.paginator = this.paginator;
-      this.isLoading = false;
+      this.dataSource.sort = this.sort;
     }));
 
 
@@ -56,14 +63,17 @@ export class TablesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
-  ngAfterViewInit() {
-    if ( !this.isLoading) {
-      this.dataSource.paginator = this.paginator;
-    }
-  }
-
   ngOnDestroy(): void {
     this.subscriptions.forEach( subscription => subscription.unsubscribe());
+  }
+
+  announceSortChange(sortState: Sort) {
+
+    if (sortState.direction) {
+      this.liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this.liveAnnouncer.announce('Sorting cleared');
+    }
   }
 
 }
