@@ -1,4 +1,13 @@
 <div class="mat-elevation-z8 m-5">
+    <form [formGroup]="regionSelection">
+      <div class="form-floating">
+        <select class="form-select" id="floatingSelectRegion" formControlName="region">
+          <option value= 'World'>World</option>
+          <option *ngFor="let region of regionList" [value]="region">{{ region }}</option>
+        </select>
+        <label for="floatingSelectRegion">Region</label>
+      </div>
+    </form>
     <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons aria-label="Select page of countries">
     </mat-paginator>
     <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
