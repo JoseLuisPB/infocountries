@@ -48,7 +48,7 @@ export class TablesComponent implements OnInit, OnDestroy {
 
   initForm(): FormGroup{
     return this.fb.group({
-      region: ['world']
+      region: ['World']
     })
   }
 

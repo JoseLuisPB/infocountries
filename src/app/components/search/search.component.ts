@@ -3,14 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { IFlag } from 'src/app/interfaces/flag';
 import { RestcountriesService } from 'src/app/services/restcountries.service';
-
-interface IAdaptedCountry {
-  flag: string;
-  code: string;
-  name: string;
-  region: string;
-  subregion: string;
-}
+import { ICountry } from '../../interfaces/country'
 
 @Component({
   selector: 'app-search',
@@ -25,8 +18,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   isLoading: boolean = true;
   searchFindResult: boolean = true;
   subscriptions: Subscription[] = [];
-  countryList: IAdaptedCountry[] = [];
-  workingCountryList: IAdaptedCountry[] = [];
+  countryList: ICountry[] = [];
+  workingCountryList: ICountry[] = [];
   flagList: IFlag[] = [];
   codeList: string[] = []
   regionList: string[] = [];
@@ -69,7 +62,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   createCountryList(countries: any): void{
     for( let country of countries){
-      const adaptedCountry: IAdaptedCountry = {
+      const adaptedCountry: ICountry = {
         flag: country.flags[1],
         code: country.cca2,
         name: country.name,
@@ -125,7 +118,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   search(): void{
     const searchText = this.searchForm.controls.name.value;
-    const searchList: IAdaptedCountry[] = this.countryList.filter( (country: any) => country.name.common.toLowerCase().includes(searchText) );
+    const searchList: ICountry[] = this.countryList.filter( (country: any) => country.name.common.toLowerCase().includes(searchText) );
     this.createFlagList(searchList);
     this.workingCountryList = searchList;
 
@@ -134,10 +127,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     } else {
       this.searchFindResult = true;
     }
-    console.log(this.searchFindResult);
   }
 
-  filterCountryRegion(actualCountryList: IAdaptedCountry[]): void{
+  filterCountryRegion(actualCountryList: ICountry[]): void{
     this.searchFindResult = true;
     const regionSelected = this.searchForm.get('region')?.value
 
