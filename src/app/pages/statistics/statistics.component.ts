@@ -1,17 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { RestcountriesService } from 'src/app/services/restcountries.service';
+import { ICountry } from '../../interfaces/country';
 
-interface IcountryData {
-
-  code: string;
-  country: string;
-  capital: string;
-  flag: string;
-  population: number;
-  area: number;
-  region: string;
-}
 
 @Component({
   selector: 'app-statistics',
@@ -21,7 +12,7 @@ interface IcountryData {
 export class StatisticsComponent implements OnInit, OnDestroy {
 
   isLoading = true;
-  countryData: IcountryData[] = [];
+  countryData: ICountry[] = [];
   subscriptions: Subscription[] = [];
 
   constructor(private restcountries: RestcountriesService,) {
@@ -31,7 +22,7 @@ export class StatisticsComponent implements OnInit, OnDestroy {
 
         this.countryData.push( {
           code: country.cca2,
-          country: country.name.common,
+          name: country.name.common,
           capital: country.capital,
           flag: country.flags[1],
           population: country.population,

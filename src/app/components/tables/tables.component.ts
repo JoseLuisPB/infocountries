@@ -5,17 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSort, Sort } from '@angular/material/sort';
 import { FormBuilder, FormGroup } from '@angular/forms';
-
-interface IcountryData {
-
-  code: string;
-  country: string;
-  capital: string;
-  flag: string;
-  population: number;
-  area: number;
-  region: string;
-}
+import { ICountry } from '../../interfaces/country';
 
 @Component({
   selector: 'app-tables',
@@ -24,10 +14,10 @@ interface IcountryData {
 })
 export class TablesComponent implements OnInit, OnDestroy {
 
-  @Input() countryData!:IcountryData[];
+  @Input() countryData!:ICountry[];
 
   displayedColumns: string[] = ['flag', 'country', 'capital', 'population', 'area'];
-  dataSource!: MatTableDataSource<IcountryData>;
+  dataSource!: MatTableDataSource<ICountry>;
   subscriptions: Subscription[] = [];
   regionList: string[] = [];
   regionSelection!: FormGroup;
@@ -42,7 +32,7 @@ export class TablesComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<IcountryData>(this.countryData);
+    this.dataSource = new MatTableDataSource<ICountry>(this.countryData);
     this.regionList = this.createRegionList();
     this.regionSelection = this.initForm();
     this.regionSelection.get('region')?.valueChanges.subscribe( region => this.filterByRegion(region));
@@ -70,7 +60,7 @@ export class TablesComponent implements OnInit, OnDestroy {
 
   filterByRegion(region: string): void {
     const filteredCountryData = this.countryData.filter( reg => reg.region === region);
-    this.dataSource = new MatTableDataSource<IcountryData>(filteredCountryData);
+    this.dataSource = new MatTableDataSource<ICountry>(filteredCountryData);
     this.adjustPaginatorAndSort();
   }
 

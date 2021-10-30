@@ -1,15 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ICountry } from '../../interfaces/country';
 
-interface IcountryData {
-
-  code: string;
-  country: string;
-  capital: string;
-  flag: string;
-  population: number;
-  area: number;
-  region: string;
-}
 
 @Component({
   selector: 'app-charts',
@@ -18,7 +9,7 @@ interface IcountryData {
 })
 export class ChartsComponent implements OnInit {
 
-  @Input() countryData!:IcountryData[];
+  @Input() countryData!:ICountry[];
 
   constructor() { }
 
