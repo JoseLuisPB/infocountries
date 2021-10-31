@@ -6,6 +6,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSort, Sort } from '@angular/material/sort';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ICountry } from '../../interfaces/country';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-tables',
@@ -19,27 +20,32 @@ export class TablesComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['flag', 'country', 'capital', 'population', 'area'];
   dataSource!: MatTableDataSource<ICountry>;
   subscriptions: Subscription[] = [];
+  countriesFilteredByRegion: ICountry[] = [];
   regionList: string[] = [];
-  regionSelection!: FormGroup;
+  subregionList: string[] = [];
+  regionsForm!: FormGroup;
 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
+    private fb: FormBuilder,
+    private utils: UtilsService,
     private liveAnnouncer: LiveAnnouncer,
-    private fb: FormBuilder) {
+    ) {
     }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<ICountry>(this.countryData);
-    this.regionList = this.createRegionList();
-    this.regionSelection = this.initForm();
-    this.regionSelection.get('region')?.valueChanges.subscribe( region => this.filterByRegion(region));
+    this.regionList = this.utils.createRegionList(this.countryData);
+    this.regionsForm = this.initForm();
+    this.regionsForm.get('region')?.valueChanges.subscribe( region => this.filterByRegion(region));
+    this.regionsForm.get('subregion')?.valueChanges.subscribe( subregion => this.filterBySubregion(subregion));
   }
 
   ngAfterViewInit(): void {
-    this.adjustPaginatorAndSort();
+    this.refreshPaginatorAndSort();
   }
 
   ngOnDestroy(): void {
@@ -48,23 +54,41 @@ export class TablesComponent implements OnInit, OnDestroy {
 
   initForm(): FormGroup{
     return this.fb.group({
-      region: ['World']
+      region: ['World'],
+      subregion: [{value: 'All', disabled: true}]
     })
   }
 
-  createRegionList(): string[] {
-    const regionDuplicateArray = this.countryData.map( region => region.region);
-    const regionSingleArray = [... new Set(regionDuplicateArray)];
-    return regionSingleArray;
-  }
-
   filterByRegion(region: string): void {
-    const filteredCountryData = this.countryData.filter( reg => reg.region === region);
-    this.dataSource = new MatTableDataSource<ICountry>(filteredCountryData);
-    this.adjustPaginatorAndSort();
+
+    if ( region === 'World' ) {
+      this.dataSource = new MatTableDataSource<ICountry>(this.countryData);
+      this.regionsForm.get('subregion')?.disable();
+
+    } else {
+      this.countriesFilteredByRegion = this.countryData.filter( reg => reg.region === region);
+      this.dataSource = new MatTableDataSource<ICountry>(this.countriesFilteredByRegion);
+      this.subregionList = this.utils.createSubregionList(this.countriesFilteredByRegion);
+      this.regionsForm.get('subregion')?.enable();
+      console.log(this.subregionList);
+    }
+
+    this.refreshPaginatorAndSort();
   }
 
-  adjustPaginatorAndSort(): void {
+  filterBySubregion(subregion: string): void {
+
+    if ( subregion === 'All' ) {
+      this.dataSource = new MatTableDataSource<ICountry>(this.countriesFilteredByRegion);
+    } else {
+      const filteredSubregionData = this.countriesFilteredByRegion.filter( sub => sub.subregion === subregion);
+      this.dataSource = new MatTableDataSource<ICountry>(filteredSubregionData);
+    }
+
+    this.refreshPaginatorAndSort();
+  }
+
+  refreshPaginatorAndSort(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }

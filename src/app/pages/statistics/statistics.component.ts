@@ -28,6 +28,7 @@ export class StatisticsComponent implements OnInit, OnDestroy {
           population: country.population,
           area: country.area,
           region: country.region,
+          subregion: country.subregion,
         });
       }
       this.isLoading = false;

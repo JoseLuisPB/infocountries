@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { IFlag } from 'src/app/interfaces/flag';
 import { RestcountriesService } from 'src/app/services/restcountries.service';
-import { ICountry } from '../../interfaces/country'
+import { ICountry } from '../../interfaces/country';
+import { UtilsService } from '../../services/utils.service';
 
 @Component({
   selector: 'app-search',
@@ -29,6 +30,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   constructor(
     private restcountries: RestcountriesService,
+    private utils: UtilsService,
     private fb: FormBuilder,
   ) {
     this.subscriptions.push(
@@ -36,7 +38,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.createCountryList(countries);
         this.createFlagList(this.countryList);
         this.createCodeList(this.countryList);
-        this.regionList = this.createRegionList();
+        this.regionList = this.utils.createRegionList(this.countryList);
         this.subregionList = [];
         this.searchForm = this.initForm();
         this.loadFormValueChanges();
@@ -104,18 +106,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     })
   }
 
-  createRegionList(): string[] {
-    const regionDuplicateArray = this.countryList.map( region => region.region);
-    const regionSingleArray = [... new Set(regionDuplicateArray)];
-    return regionSingleArray;
-  }
-
-  createSubregionList(): string[] {
-    const subregionDuplicateArray = this.workingCountryList.map((subregion: any) => subregion.subregion);
-    const subregionSingleArray = [... new Set(subregionDuplicateArray)];
-    return subregionSingleArray;
-  }
-
   search(): void{
     const searchText = this.searchForm.controls.name.value;
     const searchList: ICountry[] = this.countryList.filter( (country: any) => country.name.common.toLowerCase().includes(searchText) );
@@ -139,7 +129,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       } else {
         this.searchForm.get('subregion')?.enable();
         this.workingCountryList = actualCountryList.filter((region: any) => region.region === regionSelected);
-        this.subregionList = this.createSubregionList();
+        this.subregionList = this.utils.createSubregionList(this.workingCountryList);
       }
 
       this.createFlagList(this.workingCountryList);
