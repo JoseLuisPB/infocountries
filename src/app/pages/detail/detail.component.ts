@@ -13,9 +13,11 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
   languagesFormated = '';
+  numOfLanguages = 0;
   isLoading = true;
 
   country: ICountry = {
+    code: '',
     flag: '',
     name: '',
     capital:'',
@@ -34,6 +36,7 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.restcountries.getCountry(id).subscribe( (data:any) => {
 
+        this.country.code = data[0].cca2;
         this.country.flag = data[0].flags[1];
         this.country.name = data[0].name.common;
         this.country.capital = data[0].capital[0];
@@ -45,10 +48,14 @@ export class DetailComponent implements OnInit, OnDestroy {
         // Convert the object of languages to an array to iterate
         const entries = Object.entries(data[0].languages)
         entries.forEach( item => {
-          this.country.languages.push(String(item[1]));
+          this.country.languages?.push(String(item[1]));
         });
 
-        this.languagesFormated = this.country.languages.join(', ');
+        if ( this.country.languages !== undefined ) {
+          this.languagesFormated = this.country.languages?.join(', ');
+          this.numOfLanguages = this.country.languages.length;
+        }
+
         this.isLoading = false;
       })
     );
