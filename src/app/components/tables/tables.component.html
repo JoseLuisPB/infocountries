@@ -1,15 +1,27 @@
 <div class="mat-elevation-z8 m-5">
-    <form [formGroup]="regionSelection">
-      <div class="form-floating">
+  <div class="d-flex justify-content-between filters">
+    <form class="row p-2" [formGroup]="regionsForm" style="width:60%;">
+      <div class="form-floating col-6">
         <select class="form-select" id="floatingSelectRegion" formControlName="region">
           <option value= 'World'>World</option>
           <option *ngFor="let region of regionList" [value]="region">{{ region }}</option>
         </select>
         <label for="floatingSelectRegion">Region</label>
       </div>
+
+      <div class="form-floating col-6">
+        <select class="form-select" id="floatingSelectRegion" formControlName="subregion">
+          <option value= 'All'>All</option>
+          <option *ngFor="let subregion of subregionList" [value]="subregion">{{ subregion }}</option>
+        </select>
+        <label for="floatingSelectRegion">Subregion</label>
+      </div>
     </form>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons aria-label="Select page of countries">
+
+    <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons aria-label="Select page of countries" style="display:inline-block;">
     </mat-paginator>
+  </div>
+
     <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
 
       <ng-container matColumnDef="flag">
@@ -23,7 +35,7 @@
 
       <ng-container matColumnDef="country">
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by country"> Country </th>
-        <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
       </ng-container>
 
       <ng-container matColumnDef="capital">

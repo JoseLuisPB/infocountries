@@ -1,3 +1,30 @@
+@import '../../shared/colors.scss';
+
 table {
   width: 100%;
+}
+
+.filters{
+  background-color: $table-filters-background;
+
+  mat-paginator{
+    display: flex;
+    color: blue;
+    font-size: 14px;
+    background-color: $table-filters-background;
+  }
+}
+
+.mat-header-cell{
+  background-color: $table-header;
+  color: white;
+  font-weight: bold;
+}
+
+.mat-row:nth-child(even){
+  background-color: $table-even;
+}
+
+.mat-row:nth-child(odd){
+  background-color: $table-odd;
 }
