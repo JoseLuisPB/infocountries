@@ -16,7 +16,7 @@ export class StatisticsComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   constructor(private restcountries: RestcountriesService,) {
-    this.subscriptions.push( this.restcountries.getAllCountries().subscribe((countries: any) => {
+    this.subscriptions.push( this.restcountries.getAllCountries().subscribe( countries => {
 
       for(let country of countries){
 

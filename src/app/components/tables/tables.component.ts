@@ -33,13 +33,14 @@ export class TablesComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private utils: UtilsService,
     private liveAnnouncer: LiveAnnouncer,
-    ) {
-    }
+    ) {}
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<ICountry>(this.countryData);
     this.regionList = this.utils.createRegionList(this.countryData);
     this.regionsForm = this.initForm();
+
+    // On changes
     this.regionsForm.get('region')?.valueChanges.subscribe( region => this.filterByRegion(region));
     this.regionsForm.get('subregion')?.valueChanges.subscribe( subregion => this.filterBySubregion(subregion));
   }
