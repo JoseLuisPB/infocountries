@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialsModule } from '../app/materials/materials.module';
 import { TablesComponent } from './components/tables/tables.component';
 import { ChartsComponent } from './components/charts/charts.component';
+import { AuthorComponent } from './components/dialog/author/author.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ChartsComponent } from './components/charts/charts.component';
     FooterComponent,
     StatisticsComponent,
     TablesComponent,
-    ChartsComponent
+    ChartsComponent,
+    AuthorComponent
   ],
   imports: [
     BrowserModule,
