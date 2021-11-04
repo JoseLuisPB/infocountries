@@ -115,7 +115,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     const searchText = this.searchForm.get('name')?.value;
     const searchList: ICountry[] = this.countryList.filter( (country: any) => country.name.common.toLowerCase().includes(searchText) );
     this.createFlagList(searchList);
-    this.filteredCountryList = searchList;
 
     if(searchList.length === 0 ){
       this.searchFindResult = false;
