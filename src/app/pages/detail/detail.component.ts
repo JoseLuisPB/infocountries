@@ -34,7 +34,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   {
     const id = this.route.snapshot.params.id;
     this.subscriptions.push(
-      this.restcountries.getCountry(id).subscribe( (data:any) => {
+      this.restcountries.getCountry(id).subscribe( data => {
 
         this.country.code = data[0].cca2;
         this.country.flag = data[0].flags[1];

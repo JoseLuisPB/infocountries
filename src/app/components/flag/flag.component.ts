@@ -10,10 +10,7 @@ export class FlagComponent implements OnInit {
 
   @Input() flag_data!: IFlag;
 
-  constructor() {
-
-
-  }
+  constructor() {}
 
   ngOnInit(): void {
   }

@@ -8,3 +8,13 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+// Author format
+.custom-modalbox .mat-dialog-container{
+  background-color: #375e97;
+  padding:0;
+  margin:0;
+  overflow: hidden;
+  color: white;
+}

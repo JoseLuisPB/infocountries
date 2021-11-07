@@ -18,6 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialsModule } from '../app/materials/materials.module';
 import { TablesComponent } from './components/tables/tables.component';
 import { ChartsComponent } from './components/charts/charts.component';
+import { AuthorComponent } from './components/dialog/author/author.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { ChartsComponent } from './components/charts/charts.component';
     FooterComponent,
     StatisticsComponent,
     TablesComponent,
-    ChartsComponent
+    ChartsComponent,
+    AuthorComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,7 @@ import { ChartsComponent } from './components/charts/charts.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialsModule,
+    ChartsModule,
 
   ],
   providers: [],

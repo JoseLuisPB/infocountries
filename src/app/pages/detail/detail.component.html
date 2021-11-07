@@ -1,7 +1,7 @@
 <section>
   <ng-container *ngIf="!isLoading else loading">
     <div class="row pt-4 text-center">
-      <h1>Country details</h1>
+      <h1 class="tex-white">Country details</h1>
     </div>
     <div class="row">
       <div class="col-sm-3"></div>
@@ -9,12 +9,12 @@
         <div class="card-format my-4">
           <div class="row">
             <span class="country-name text-white">{{ country.name}}</span>
-        </div>
+          </div>
           <div class="row">
-            <div class="col-sm-6">
-              <img [src]="country.flag" [alt]="country.name"/>
+            <div class="col-sm-5" style="text-align: center;">
+              <img [src]="country.flag" width="220" [alt]="country.name"/>
             </div>
-            <div class="col-sm-6 d-flex flex-column ps-3">
+            <div class="col-sm-7 d-flex flex-column ps-3">
               <div class="d-flex align-items-end">
                 <span class="title-data">Capital:</span>
                 <span class="content-data">{{ country.capital}}</span>

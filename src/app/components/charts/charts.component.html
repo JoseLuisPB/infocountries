@@ -1,1 +1,33 @@
-<p>charts works!</p>
+<h1 class="text-center text-white">Charts</h1>
+
+<div class="row g-0">
+  <div class="col-sm-6 ">
+    <div class="chart-format">
+      <canvas baseChart
+        [data]="chartRegionArea"
+        [labels]="chartRegionLabels"
+        [chartType]="pieChartType"
+        [options]="chartRegionAreaOptions"
+        [plugins]="pieChartPlugins"
+        [legend]="pieChartLegend">
+      </canvas>
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+    <div class="chart-format">
+      <canvas baseChart
+        [data]="chartRegionPopulation"
+        [labels]="chartRegionLabels"
+        [chartType]="pieChartType"
+        [options]="chartRegionPopulationOptions"
+        [plugins]="pieChartPlugins"
+        [legend]="pieChartLegend">
+      </canvas>
+    </div>
+  </div>
+</div>
+
+
+
+

@@ -15,9 +15,7 @@ export class UtilsService {
   }
 
   createSubregionList(countryList: ICountry[]): string[] {
-    console.log(countryList);
     const subregionListWithDuplicates = countryList.map((subregion: any) => subregion.subregion);
-    console.log(subregionListWithDuplicates);
     const subregionList = [... new Set(subregionListWithDuplicates)];
     return subregionList;
   }
