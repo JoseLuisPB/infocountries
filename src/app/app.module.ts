@@ -19,6 +19,7 @@ import { MaterialsModule } from '../app/materials/materials.module';
 import { TablesComponent } from './components/tables/tables.component';
 import { ChartsComponent } from './components/charts/charts.component';
 import { AuthorComponent } from './components/dialog/author/author.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { AuthorComponent } from './components/dialog/author/author.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialsModule,
+    ChartsModule,
 
   ],
   providers: [],
