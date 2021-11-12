@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ICountry } from '../../interfaces/country';
 import { ChartType, ChartOptions } from 'chart.js';
 import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
-
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-charts',
@@ -13,19 +13,15 @@ export class ChartsComponent implements OnInit {
 
   @Input() countryData!:ICountry[];
 
-  // Region lists
+  chartRegionLabels: Label[] = [];
+  chartEuropeLabels: Label[] = [];
   worldList: ICountry[] = [];
-  americasList: ICountry[] = [];
-  europeList: ICountry[] = [];
-  africaList: ICountry[] = [];
-  asiaList: ICountry[] = [];
-  oceaniaList: ICountry[] = [];
-  antarcticList: ICountry[] = [];
 
-  // Regions
-  chartRegionLabels: Label[] = ['Americas', 'Europe', 'Africa', 'Asia', 'Oceania', 'Antarctica']
+  // Datasets
   chartRegionPopulation: SingleDataSet = [];
   chartRegionArea: SingleDataSet = [];
+  chartEuropeArea: SingleDataSet = [];
+  chartEuropePopulation: SingleDataSet = []
 
   public chartRegionAreaOptions: ChartOptions = {
     responsive: true,
@@ -34,104 +30,67 @@ export class ChartsComponent implements OnInit {
 
   public chartRegionPopulationOptions: ChartOptions = {
     responsive: true,
-    title: {display: true, text:'Region population (hab)'},
+    title: {
+      display: true,
+      text:'Region population (hab)'
+    },
   };
 
-
-  public pieChartLabels: Label[] = ['PHP', '.Net', 'Java'];
-  public pieChartData: SingleDataSet = [50, 30, 20];
   public pieChartType: ChartType = 'pie';
+  public barChartType: ChartType = 'bar';
   public pieChartLegend = true;
+  public lineChartLegend = false;
   public pieChartPlugins = [];
 
-  constructor() {
+  constructor(
+    private utilsService: UtilsService,
+  ) {
     monkeyPatchChartJsTooltip();
     monkeyPatchChartJsLegend();
   }
 
   ngOnInit(): void {
     this.worldList = this.countryData;
-    this.countrySort();
-    this.setRegionAreas();
-    this.setRegionPopulation();
+    this.chartRegionLabels = this.utilsService.createRegionList(this.worldList);
+    this.worldDataCalculation();
+    this.regionDataCalculation();
+
   }
 
-  countrySort(): void {
-    this.worldList.forEach( country => {
-      this.countryDistribution(country);
+  worldDataCalculation(): void {
+    this.chartRegionLabels.forEach( label => {
+      const regionArray = this.worldList.filter( (country: ICountry) => country.region === label);
+      this.sumRegionAreas(regionArray);
+      this.sumRegionPopulation(regionArray);
     });
   }
 
-  countryDistribution(country: ICountry): void {
-      const region = country.region;
-
-      switch(region){
-        case 'Americas':
-          this.americasList.push(country);
-          break;
-
-        case 'Europe':
-          this.europeList.push(country);
-          break;
-
-        case 'Africa':
-          this.africaList.push(country);
-          break;
-
-        case 'Asia':
-          this.asiaList.push(country);
-          break;
-
-        case 'Oceania':
-          this.oceaniaList.push(country);
-          break;
-
-        default:
-          this.antarcticList.push(country);
-          break;
-      }
-  }
-
-  setRegionAreas(): void {
-    // Important: Order the functions according to chartRegionLabels Order
-    this.sumRegionAreas(this.americasList);
-    this.sumRegionAreas(this.europeList);
-    this.sumRegionAreas(this.africaList);
-    this.sumRegionAreas(this.asiaList);
-    this.sumRegionAreas(this.oceaniaList);
-    this.sumRegionAreas(this.antarcticList);
-
-  }
-
-  setRegionPopulation(): void {
-    // Important: Order the functions according to chartRegionLabels Order
-    this.sumRegionPopulation(this.americasList);
-    this.sumRegionPopulation(this.europeList);
-    this.sumRegionPopulation(this.africaList);
-    this.sumRegionPopulation(this.asiaList);
-    this.sumRegionPopulation(this.oceaniaList);
-    this.sumRegionPopulation(this.antarcticList);
-  }
-
-  sumRegionAreas(areaList: ICountry[]): void{
-
-    const totalArea = areaList.reduce((total: number, country: ICountry) => {
+  regionDataCalculation(): void {
+    const europeCountries = this.worldList.filter( country => country.region === 'Europe');
+      europeCountries.forEach( country => {
+      const label = country.name ? country.name : '';
       const area = country.area ? country.area : 0;
-      return area + total;
+      const population = country.population ? country.population : 0;
+      this.chartEuropeLabels.push(label);
+      this.chartEuropeArea.push(area);
+      this.chartEuropePopulation.push(population);
+    });
+  }
+
+  sumRegionAreas(areaList: any): void{
+    const totalArea = areaList.reduce((total: number, country: ICountry) => {
+      return (country.area ? country.area : 0) + total;
     }, 0);
 
     this.chartRegionArea.push(totalArea);
   }
 
-  sumRegionPopulation(populationList: ICountry[]): void {
+  sumRegionPopulation(populationList: any): void {
     const totalPopulation = populationList.reduce((total: number, country: ICountry) => {
-      const population = country.population ? country.population : 0;
-      return population + total;
+      return (country.population ? country.population : 0) + total;
     },0);
 
     this.chartRegionPopulation.push(totalPopulation);
   }
-
-
 
 }
