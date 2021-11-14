@@ -1,3 +1,5 @@
+@import '../../shared/colors.scss';
+
 $flag-width: 175px;
 $flag-height: 125px;
 $flag-border-radius: 10px;
@@ -7,7 +9,6 @@ $flag-border-radius: 10px;
   height: $flag-height;
   border-radius: $flag-border-radius;
 }
-
 
 .flip-card{
   background-color: transparent;
@@ -43,7 +44,7 @@ $flag-border-radius: 10px;
 }
 
 .flip-card-back {
-  background-color: rgb(255, 110, 25);
+  background-color: $flag-back-color;
   color: white;
   border-radius: $flag-border-radius;
   display: flex;

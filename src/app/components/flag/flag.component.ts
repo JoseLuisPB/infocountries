@@ -8,16 +8,9 @@ import { IFlag } from '../../interfaces/flag'
 })
 export class FlagComponent implements OnInit {
 
-  @Input() flag_data: IFlag = {
-    code: '',
-    country: '',
-    country_flag: []
-  };
+  @Input() flag_data!: IFlag;
 
-  constructor() {
-
-
-  }
+  constructor() {}
 
   ngOnInit(): void {
   }
