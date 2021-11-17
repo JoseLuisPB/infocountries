@@ -9,7 +9,7 @@ These are the versions of the most important libraries and frameworks I have use
   - Ng2-charts: 2.4.3
 
 ## Application demo
-Click on the follow link to access to the aplication: https://infocountries-4ef6e.web.app/
+Click on the follow link to access to a demo of the aplication: https://infocountries-4ef6e.web.app/
 
 ## How to run the aplication using an IDE
 
