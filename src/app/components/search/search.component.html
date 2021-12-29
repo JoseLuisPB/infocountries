@@ -1,16 +1,16 @@
-<section>
+<section class="row">
   <ng-container *ngIf="!isLoading else loading">
     <form  [formGroup]="searchForm" autocomplete="off">
       <!-- Search -->
       <div class="row">
-        <div class="col-3 my-4 mx-2">
+        <div class="col-md-3 col-sm-12 my-4 mx-2">
           <div class="form-floating">
             <input type="text" class="form-control" id="floatingSearch" placeholder="Search" formControlName="name" (keyup)="search()">
             <label for="floatingSearch">Search</label>
           </div>
         </div>
         <!-- Region -->
-        <div class="col-3 my-4 mx-2">
+        <div class="col-md-3 col-sm-12 my-4 mx-2">
           <div class="form-floating">
             <select class="form-select" id="floatingSelectRegion" formControlName="region">
               <option value= 'all'>All</option>
@@ -20,7 +20,7 @@
           </div>
         </div>
         <!-- Subregion -->
-        <div class="col-3 my-4 mx-2">
+        <div class="col-md-3 col-sm-12 my-4 mx-2">
           <div class="form-floating">
             <select class="form-select" id="floatingSelectSubRegion" formControlName="subregion">
               <option value= 'all'>All</option>
@@ -33,17 +33,17 @@
     </form>
     <mat-divider></mat-divider>
     <div *ngIf="searchFindResult; else noResult">
-      <div class="d-flex" >
-        <div class="flag-arrangement">
+      <div>
+        <div class="flex-wrap d-flex justify-content-md-start justify-content-sm-center">
           <app-flag class="m-4" *ngFor="let flag of flagList" [flag_data]="flag"></app-flag>
         </div>
       </div>
     </div>
   </ng-container>
-  <ng-template #loading>
-    <app-loading ></app-loading>
-  </ng-template>
   <ng-template #noResult>
     <h2 class="d-flex justify-content-center mt-3">No results found</h2>
+  </ng-template>
+  <ng-template #loading>
+    <app-loading ></app-loading>
   </ng-template>
 </section>
