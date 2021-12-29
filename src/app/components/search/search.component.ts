@@ -63,40 +63,32 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   createCountryList(countries: any): void{
 
-    for( let country of countries){
-
-      const adaptedCountry: ICountry = {
+    this.countryList = countries.map( (country: any) => {
+      return {
         flag: country.flags[1],
         code: country.cca2,
         name: country.name,
         region: country.region,
-        subregion: country.subregion,
+        subregion: country.subregion
       }
-
-      this.countryList.push( adaptedCountry );
-    }
+    })
   }
 
   createFlagList(countries: any): void {
     this.flagList = [];
 
-    for( let country of countries ){
-        this.flagList.push(
-          {
-            code: country.code,
-            country: country.name.common,
-            country_flag: country.flag,
-          }
-        );
-    }
+    this.flagList = countries.map( (country: any) => {
+      return {
+        code: country.code,
+        country: country.name.common,
+        country_flag: country.flag,
+      }
+    })
   }
 
   createCodeList(countries: any): void {
 
-    for(let country of countries){
-      this.codeList.push(country.code)
-    }
-
+    this.codeList = countries.map( (country: any) => country.code);
     this.codeListEmiter.emit(this.codeList);
   }
 

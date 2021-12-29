@@ -18,7 +18,19 @@ export class StatisticsComponent implements OnInit, OnDestroy {
   constructor(private restcountries: RestcountriesService,) {
     this.subscriptions.push( this.restcountries.getAllCountries().subscribe( countries => {
 
-      for(let country of countries){
+      this.countryData = countries.map( (country: any) => {
+        return {
+          code: country.cca2,
+          name: country.name.common,
+          capital: country.capital,
+          flag: country.flags[1],
+          population: country.population,
+          area: country.area,
+          region: country.region,
+          subregion: country.subregion,
+        }
+      });
+      /* for(let country of countries){
 
         this.countryData.push( {
           code: country.cca2,
@@ -30,7 +42,7 @@ export class StatisticsComponent implements OnInit, OnDestroy {
           region: country.region,
           subregion: country.subregion,
         });
-      }
+      } */
       this.isLoading = false;
     }));
   }
